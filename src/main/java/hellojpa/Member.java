@@ -3,19 +3,23 @@ package hellojpa;
 import com.sun.org.apache.bcel.internal.generic.LOR;
 
 import javax.persistence.*;
-import java.time.*;
-import java.util.Date;
+
 
 @Entity
 public class Member {
-    @Id //pk맵핑
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue
+    @Column(name = "MEMBER_ID")
     private Long id;
-    @Column(name = "name",nullable = false)
+
+    @Column(name = "USERNAME")
     private String username;
 
-    public Member() {
-    }
+    @ManyToOne//Member입장
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
+//    @Column(name = "TEAM_ID")
+//    private Long teamId;
 
 
     public Long getId() {
@@ -34,5 +38,18 @@ public class Member {
         this.username = username;
     }
 
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+//    public void changeTeam(Team team) {
+//        this.team = team;
+//        team.getMembers().add(this);
+//    }
 }
+
 
